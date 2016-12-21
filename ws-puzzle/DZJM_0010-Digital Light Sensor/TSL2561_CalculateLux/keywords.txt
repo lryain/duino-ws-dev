@@ -1,0 +1,2 @@
+TSL2561_CalculateLux    KEYWORD1
+calculateLux    KEYWORD2

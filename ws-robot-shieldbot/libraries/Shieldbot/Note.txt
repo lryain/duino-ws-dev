@@ -1,0 +1,20 @@
+The Shield Bot V0.9(V1.0) ane  Shield Bot V1.1 are sharing this library. But for the shieldbot Version 1.1, we changed to the driver pins. So you need to change ShieldBot.cpp to match your Shield Bot Pins. 
+
+The change part is as follows:
+1. Add the "/*" in the line 18 beginning of .cpp file:
+ 
+/* #define right1 5 //define I1 interface
+ 
+2. Add the "*/" in the line 23 end of .cpp file:
+ 
+#define left2 10   //define I4 interface */
+
+3.Remove the "/*" in the line 27 beginning of .cpp file: 
+
+#define right1 8  //define I1 interface
+
+4.Remove the "*/" in the line 32 end of .cpp file: 
+
+#define left2 13   //define I4 interface  
+
+Now you have finished the change and remeber to save it.

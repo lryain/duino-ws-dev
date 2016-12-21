@@ -1,0 +1,1 @@
+将你libraries下面的example\WebClient\WebClient.ino 用文件夹下面的WebClient.ino，并把程序烧写进去开发板，然后打印，你可以看到结果。
