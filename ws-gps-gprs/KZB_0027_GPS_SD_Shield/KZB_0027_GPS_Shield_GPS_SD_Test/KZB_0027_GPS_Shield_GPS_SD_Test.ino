@@ -21,6 +21,12 @@
  */
  // include the SD library:
 #include <SD.h>
+#include <SoftwareSerial.h> // Include the SoftwareSerial library
+#define ARDUINO_GPS_RX 3 // Arduino RX pin connected to GPS TX
+#define ARDUINO_GPS_TX 2 // Arduino TX pin connected to GPS RX
+#define GPS_BAUD_RATE 9600 // The GPS Shield module defaults to 9600 baud
+// Create a SoftwareSerial object called gps:
+SoftwareSerial gpsPort(ARDUINO_GPS_TX, ARDUINO_GPS_RX);
 
 // set up variables using the SD utility library functions:
 Sd2Card card;
@@ -41,7 +47,7 @@ void setup()
     ; // wait for serial port to connect. Needed for Leonardo only
   }
 
-
+  gpsPort.begin(GPS_BAUD_RATE);
   Serial.print("\nInitializing SD card...");
   // On the Ethernet Shield, CS is pin 4. It's set as an output by default.
   // Note that even if it's not used as the CS pin, the hardware SS pin 
@@ -113,5 +119,8 @@ void setup()
 
 
 void loop(void) {
-  
+    if (gpsPort.available()) // If GPS data is available
+    Serial.write(gpsPort.read()); // Read it and print to SerialMonitor
+  if (Serial.available()) // If SerialMonitor data is available
+    gpsPort.write(Serial.read()); // Read it and send to GPS
 }
