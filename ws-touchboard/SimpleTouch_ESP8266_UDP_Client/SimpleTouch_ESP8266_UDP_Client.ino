@@ -47,16 +47,6 @@ ESP8266UDPClient client;
 // HTTP Strings //
 //////////////////
 const char destServer[] = "Kevin-PC";
-const String htmlHeader = "HTTP/1.1 200 OK\r\n"
-                          "Content-Type: text/html\r\n"
-                          "Connection: close\r\n\r\n"
-                          "<!DOCTYPE HTML>\r\n"
-                          "<html>\r\n";
-
-const String httpRequest = "GET / HTTP/1.1\n"
-                           "Host: example.com\n"
-                           "Connection: close\n\n";
-
 // All functions called from setup() are defined below the
 // loop() function. They modularized to make it easier to
 // copy/paste into sketches of your own.
@@ -163,8 +153,8 @@ void initializeESP8266()
   // It returns either true or false -- indicating whether
   // communication was successul or not.
   // true
-  //int test = esp8266.begin(9600, ESP8266_HARDWARE_SERIAL);
-  int test = esp8266.begin();
+  //int test = esp8266.begin();
+  int test = esp8266.begin(9600, ESP8266_HARDWARE_SERIAL);
   if (test != true)
   {
     Serial.println(F("Error talking to ESP8266."));
