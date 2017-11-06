@@ -26,6 +26,8 @@ Distributed as-is; no warranty is given.
 #include <IPAddress.h>
 #include "SparkFunESP8266Client.h"
 #include "SparkFunESP8266Server.h"
+#include "SparkFunESP8266UDPClient.h"
+#include "SparkFunESP8266UDPServer.h"
 
 /////////////////////
 // Pin Definitions //
@@ -152,7 +154,7 @@ public:
 	/////////////////////
 	int16_t status();
 	int16_t updateStatus();
-	int16_t tcpConnect(uint8_t linkID, const char * destination, uint16_t port, uint16_t keepAlive);
+	int16_t tcpConnect(uint8_t linkID, const char * destination, uint16_t port, uint16_t keepAlive, esp8266_connection_type type = ESP8266_TCP);
 	int16_t tcpSend(uint8_t linkID, const uint8_t *buf, size_t size);
 	int16_t close(uint8_t linkID);
 	int16_t setTransferMode(uint8_t mode);
@@ -179,6 +181,8 @@ public:
 	
 	friend class ESP8266Client;
 	friend class ESP8266Server;
+	friend class ESP8266UDPClient;
+	friend class ESP8266UDPServer;
 
     int16_t _state[ESP8266_MAX_SOCK_NUM];
 	

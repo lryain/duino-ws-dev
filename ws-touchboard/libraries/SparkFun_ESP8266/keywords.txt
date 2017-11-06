@@ -8,6 +8,8 @@ esp8266	KEYWORD1
 ESP8266Class	KEYWORD1
 ESP8266Client	KEYWORD1
 ESP8266Server	KEYWORD1
+ESP8266UDPServer	KEYWORD1
+ESP8266UDPClient	KEYWORD1
 
 ################################################################
 # Methods and Functions

@@ -21,7 +21,7 @@ Distributed as-is; no warranty is given.
 #include <SparkFunESP8266WiFi.h>
 #include <Arduino.h>
 #include "util/ESP8266_AT.h"
-#include "SparkFunESP8266Client.h"
+//#include "SparkFunESP8266Client.h"
 
 #define ESP8266_DISABLE_ECHO
 
@@ -52,8 +52,8 @@ bool ESP8266Class::begin(unsigned long baudRate, esp8266_serial_port serialPort)
 	}
 	else if (serialPort == ESP8266_HARDWARE_SERIAL)
 	{
-		Serial.begin(baudRate);
-		_serial = &Serial;
+		Serial1.begin(baudRate);
+		_serial = &Serial1;
 	}
 	
 	if (test())
@@ -472,14 +472,22 @@ int16_t ESP8266Class::localMAC(char * mac)
 // TCP/IP Commands //
 /////////////////////
 
-int16_t ESP8266Class::tcpConnect(uint8_t linkID, const char * destination, uint16_t port, uint16_t keepAlive)
+int16_t ESP8266Class::tcpConnect(uint8_t linkID, const char * destination, uint16_t port, uint16_t keepAlive, esp8266_connection_type type)
 {
 	print("AT");
 	print(ESP8266_TCP_CONNECT);
 	print('=');
 	print(linkID);
 	print(',');
-	print("\"TCP\",");
+	//print("\"TCP\","); 
+	// add the connection type, defualt is TCP
+    if(type==ESP8266_TCP)
+    {
+        print("\"TCP\",");
+    }else
+    {
+        print("\"UDP\",");
+    }
 	print("\"");
 	print(destination);
 	print("\",");
