@@ -1,29 +1,19 @@
 /*
-  SD card test 
-   
- This example shows how use the utility libraries on which the'
- SD library is based in order to get info about your SD card.
- Very useful for testing a card when you're not sure whether its working or not.
- 	
- The circuit:
-  * SD card attached to SPI bus as follows:
- ** MOSI - pin 11 on Arduino Uno/Duemilanove/Diecimila
- ** MISO - pin 12 on Arduino Uno/Duemilanove/Diecimila
- ** CLK - pin 13 on Arduino Uno/Duemilanove/Diecimila
- ** CS - depends on your SD card shield or module. 
- 		Pin 4 used here for consistency with other Arduino examples
+  GPS and SD card test
 
- 
- created  28 Mar 2011
- by Limor Fried 
- modified 9 Apr 2012
- by Tom Igoe
- */
- // include the SD library:
+  This example shows how use the utility libraries on which the'
+  SD library is based in order to get info about your SD card.
+  Very useful for testing a card when you're not sure whether its working or not.
+
+  created  28 Mar 2016
+  by Kevin.Liu
+*/
+// include the SD library:
 #include <SD.h>
 #include <SoftwareSerial.h> // Include the SoftwareSerial library
-#define ARDUINO_GPS_RX 3 // Arduino RX pin connected to GPS TX
+
 #define ARDUINO_GPS_TX 2 // Arduino TX pin connected to GPS RX
+#define ARDUINO_GPS_RX 3 // Arduino RX pin connected to GPS TX
 #define GPS_BAUD_RATE 9600 // The GPS Shield module defaults to 9600 baud
 // Create a SoftwareSerial object called gps:
 SoftwareSerial gpsPort(ARDUINO_GPS_TX, ARDUINO_GPS_RX);
@@ -37,22 +27,22 @@ SdFile root;
 // Arduino Ethernet shield: pin 4
 // Adafruit SD shields and modules: pin 10
 // Sparkfun SD shield: pin 8
-const int chipSelect = 8;    
+const int chipSelect = 8;
 
 void setup()
 {
- // Open serial communications and wait for port to open:
+  // Open serial communications and wait for port to open:
   Serial.begin(115200);
-   while (!Serial) {
+  while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
 
   gpsPort.begin(GPS_BAUD_RATE);
   Serial.print("\nInitializing SD card...");
   // On the Ethernet Shield, CS is pin 4. It's set as an output by default.
-  // Note that even if it's not used as the CS pin, the hardware SS pin 
-  // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
-  // or the SD library functions will not work. 
+  // Note that even if it's not used as the CS pin, the hardware SS pin
+  // (10 on most Arduino boards, 53 on the Mega) must be left as an output
+  // or the SD library functions will not work.
   pinMode(10, OUTPUT);     // change this to 53 on a mega
 
 
@@ -65,12 +55,12 @@ void setup()
     Serial.println("* did you change the chipSelect pin to match your shield or module?");
     return;
   } else {
-   Serial.println("Wiring is correct and a card is present."); 
+    Serial.println("Wiring is correct and a card is present.");
   }
 
   // print the type of card
   Serial.print("\nCard type: ");
-  switch(card.type()) {
+  switch (card.type()) {
     case SD_CARD_TYPE_SD1:
       Serial.println("SD1");
       break;
@@ -96,7 +86,7 @@ void setup()
   Serial.print("\nVolume type is FAT");
   Serial.println(volume.fatType(), DEC);
   Serial.println();
-  
+
   volumesize = volume.blocksPerCluster();    // clusters are collections of blocks
   volumesize *= volume.clusterCount();       // we'll have a lot of clusters
   volumesize *= 512;                            // SD card blocks are always 512 bytes
@@ -109,17 +99,17 @@ void setup()
   volumesize /= 1024;
   Serial.println(volumesize);
 
-  
+
   Serial.println("\nFiles found on the card (name, date and size in bytes): ");
   root.openRoot(volume);
-  
+
   // list all files in the card with date and size
   root.ls(LS_R | LS_DATE | LS_SIZE);
 }
 
 
 void loop(void) {
-    if (gpsPort.available()) // If GPS data is available
+  if (gpsPort.available()) // If GPS data is available
     Serial.write(gpsPort.read()); // Read it and print to SerialMonitor
   if (Serial.available()) // If SerialMonitor data is available
     gpsPort.write(Serial.read()); // Read it and send to GPS
