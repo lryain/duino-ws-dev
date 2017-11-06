@@ -17,17 +17,10 @@
  so only the following can be used for RX:
  8, 9, 10, 11, 14 (MISO), 15 (SCK), 16 (MOSI).
 
- created back in the mists of time
- modified 25 May 2012
- by Tom Igoe
- based on Mikal Hart's example
-
- This example code is in the public domain.
-
  */
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(11, 3); // RX, TX
+SoftwareSerial mySerial(8, 9); // RX, TX
 
 void setup() {
   // Open serial communications and wait for port to open:
@@ -40,8 +33,8 @@ void setup() {
   Serial.println("Goodnight moon!");
 
   // set the data rate for the SoftwareSerial port
-  mySerial.begin(115200);
-  mySerial.println("Hello, world?");
+  mySerial.begin(9600);
+  mySerial.println("AT");
 }
 
 void loop() { // run over and over
