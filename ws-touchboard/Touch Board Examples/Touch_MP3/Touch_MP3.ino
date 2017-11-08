@@ -96,7 +96,7 @@ void setup(){
   
   pinMode(LED_BUILTIN, OUTPUT);
    
-  while (!Serial) ; {} //uncomment when using the serial monitor 
+  //while (!Serial) ; {} //uncomment when using the serial monitor 
   Serial.println("Bare Conductive Touch MP3 player");
 
   if(!sd.begin(SD_SEL, SPI_HALF_SPEED)) sd.initErrorHalt();
